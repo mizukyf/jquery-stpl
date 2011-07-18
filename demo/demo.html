@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <title>jquery-stpl.js</title>
+    <script type="text/javascript" src="lib/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-stpl-1.0.min.js"></script>
+    <script type="text/javascript">
+        (function($){$(function(){
+        	
+        	var strSrc = $("#source1").val().replace("&amp;");
+        	var jqBefore = $("#before");
+        	var jqPost = $("#post");
+        	var objData = {
+        		foo: "fooValue",
+        		bar: "barValue",
+        		arr: [
+        			{fooN: "foo1Value", barN: "bar1Value"},
+        			{fooN: "foo2Value", barN: "bar2Value"},
+        			{fooN: "foo3Value", barN: "bar3Value"},
+        		],
+        		obj: {
+        			foo: "fooValue2",
+        			bar: "barValue2"
+        		}
+        	};
+        	jqBefore.html($(strSrc));
+        	jqPost.append(jqBefore.children().clone().stpl(objData))
+        	$("#source2").val(jqPost.html())
+
+        })})(jQuery)
+    </script>
+</head>
+<body>
+    <h1>jquery-stpl.js - demo</h1>
+    
+    <h2>Source Code</h2>
+    <textarea id="source1" cols="100" rows="5"><div class="t:set?id=foo other">
+    <p class="t:set?content=bar"></p>
+    <ul class="t:map?array=arr">
+    	<li class="t:set?class=fooN"><input type="text" size="25" class="t:set?name=fooN&value=barN" /></li>
+    </ul>
+    <p class="t:with?object=obj"><span class="t:set?content=foo"></span></p>
+</div></textarea>
+    
+    <h2>Before Process</h2>
+    <div id="before" style="border: 1px solid #000;"></div>
+    
+    <h2>Post Code</h2>
+    <textarea id="source2" cols="100" rows="5"></textarea>
+    
+    <h2>Post Process</h2>
+    <div id="post" style="border: 1px solid #000;"></div>
+    
+</body>
